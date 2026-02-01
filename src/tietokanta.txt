@@ -1,0 +1,198 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema vn
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema vn
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `vn` DEFAULT CHARACTER SET latin1 ;
+USE `vn` ;
+
+-- -----------------------------------------------------
+-- Table `vn`.`posti`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`posti` (
+  `postinro` CHAR(5) NOT NULL,
+  `toimipaikka` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`postinro`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`asiakas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`asiakas` (
+  `asiakas_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `postinro` CHAR(5) NOT NULL,
+  `etunimi` VARCHAR(20) NULL DEFAULT NULL,
+  `sukunimi` VARCHAR(40) NULL DEFAULT NULL,
+  `lahiosoite` VARCHAR(40) NULL DEFAULT NULL,
+  `email` VARCHAR(50) NULL DEFAULT NULL,
+  `puhelinnro` VARCHAR(15) NULL DEFAULT NULL,
+  PRIMARY KEY (`asiakas_id`),
+  INDEX `fk_as_posti1_idx` (`postinro` ASC) VISIBLE,
+  INDEX `asiakas_snimi_idx` (`sukunimi` ASC) VISIBLE,
+  INDEX `asiakas_enimi_idx` (`etunimi` ASC) VISIBLE,
+  CONSTRAINT `fk_asiakas_posti`
+    FOREIGN KEY (`postinro`)
+    REFERENCES `vn`.`posti` (`postinro`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 23
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`kayttaja`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`kayttaja` (
+  `kayttaja_nimi` VARCHAR(40) NOT NULL,
+  `salasana` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`kayttaja_nimi`))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`toimintaalue`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`toimintaalue` (
+  `toimintaalue_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nimi` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`toimintaalue_id`),
+  UNIQUE INDEX `nimi_UNIQUE` (`nimi` ASC) VISIBLE,
+  INDEX `Toimintaalue_nimi_index` (`nimi` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 30
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`mokki`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`mokki` (
+  `mokki_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `toimintaalue_id` INT UNSIGNED NOT NULL,
+  `postinro` CHAR(5) NOT NULL,
+  `mokkinimi` VARCHAR(45) NULL DEFAULT NULL,
+  `katuosoite` VARCHAR(45) NOT NULL,
+  `kuvaus` VARCHAR(150) NULL DEFAULT NULL,
+  `henkilomaara` INT NOT NULL,
+  `varustelu` VARCHAR(100) NULL DEFAULT NULL,
+  `vrk_hinta` INT NOT NULL,
+  `omistaja_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`mokki_id`),
+  INDEX `fk_mokki_alue_idx` (`toimintaalue_id` ASC) VISIBLE,
+  INDEX `fk_mokki_posti_idx` (`postinro` ASC) VISIBLE,
+  INDEX `fk_mokki_omistaja_id_idx` (`omistaja_id` ASC) VISIBLE,
+  CONSTRAINT `fk_mokki_omistaja`
+    FOREIGN KEY (`omistaja_id`)
+    REFERENCES `vn`.`asiakas` (`asiakas_id`),
+  CONSTRAINT `fk_mokki_posti`
+    FOREIGN KEY (`postinro`)
+    REFERENCES `vn`.`posti` (`postinro`),
+  CONSTRAINT `fk_mokki_toimintaalue`
+    FOREIGN KEY (`toimintaalue_id`)
+    REFERENCES `vn`.`toimintaalue` (`toimintaalue_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 64
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`varaus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`varaus` (
+  `varaus_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `asiakas_id` INT UNSIGNED NOT NULL,
+  `mokki_mokki_id` INT UNSIGNED NOT NULL,
+  `varattu_pvm` DATETIME NULL DEFAULT NULL,
+  `vahvistus_pvm` DATETIME NULL DEFAULT NULL,
+  `varattu_alkupvm` DATETIME NULL DEFAULT NULL,
+  `varattu_loppupvm` DATETIME NULL DEFAULT NULL,
+  `vahvistettu` TINYINT NOT NULL DEFAULT '0',
+  `laskutettu` TINYINT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`varaus_id`),
+  INDEX `varaus_as_id_index` (`asiakas_id` ASC) VISIBLE,
+  INDEX `fk_var_mok_idx` (`mokki_mokki_id` ASC) VISIBLE,
+  CONSTRAINT `fk_varaus_mokki`
+    FOREIGN KEY (`mokki_mokki_id`)
+    REFERENCES `vn`.`mokki` (`mokki_id`),
+  CONSTRAINT `varaus_ibfk`
+    FOREIGN KEY (`asiakas_id`)
+    REFERENCES `vn`.`asiakas` (`asiakas_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 60
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`lasku`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`lasku` (
+  `lasku_id` INT NOT NULL AUTO_INCREMENT,
+  `varaus_id` INT UNSIGNED NOT NULL,
+  `summa` DOUBLE(8,2) NOT NULL,
+  `alv` DOUBLE(8,2) NOT NULL,
+  PRIMARY KEY (`lasku_id`),
+  INDEX `lasku_ibfk_1` (`varaus_id` ASC) VISIBLE,
+  CONSTRAINT `lasku_ibfk_1`
+    FOREIGN KEY (`varaus_id`)
+    REFERENCES `vn`.`varaus` (`varaus_id`)
+    ON DELETE RESTRICT)
+ENGINE = InnoDB
+AUTO_INCREMENT = 71
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`palvelu`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`palvelu` (
+  `palvelu_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `toimintaalue_id` INT UNSIGNED NOT NULL,
+  `nimi` VARCHAR(40) NULL DEFAULT NULL,
+  `tyyppi` INT NULL DEFAULT NULL,
+  `kuvaus` VARCHAR(255) NULL DEFAULT NULL,
+  `hinta` DOUBLE(8,2) NOT NULL,
+  `alv` DOUBLE(8,2) NOT NULL,
+  PRIMARY KEY (`palvelu_id`),
+  INDEX `Palvelu_nimi_index` (`nimi` ASC) VISIBLE,
+  INDEX `palv_toimip_id_ind` (`toimintaalue_id` ASC) VISIBLE,
+  CONSTRAINT `palvelu_ibfk_1`
+    FOREIGN KEY (`toimintaalue_id`)
+    REFERENCES `vn`.`toimintaalue` (`toimintaalue_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 15
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `vn`.`varauksen_palvelut`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vn`.`varauksen_palvelut` (
+  `varaus_id` INT UNSIGNED NOT NULL,
+  `palvelu_id` INT UNSIGNED NOT NULL,
+  `lkm` INT NOT NULL,
+  INDEX `vp_varaus_id_index` (`varaus_id` ASC) VISIBLE,
+  INDEX `vp_palvelu_id_index` (`palvelu_id` ASC) VISIBLE,
+  CONSTRAINT `fk_varaus`
+    FOREIGN KEY (`varaus_id`)
+    REFERENCES `vn`.`varaus` (`varaus_id`)
+    ON DELETE RESTRICT)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

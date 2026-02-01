@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="446.0" prefWidth="560.0" style="-fx-alignment: CENTER;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.varausDialogController">
+   <children>
+      <Label layoutX="36.0" layoutY="14.0" prefHeight="41.0" prefWidth="319.0" text="Lisää varauksen tiedot">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMokki" disable="true" layoutX="34.0" layoutY="66.0" prefHeight="20.0" prefWidth="224.0" text="Mökin nimi">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMokkiOsoite" disable="true" layoutX="34.0" layoutY="86.0" prefHeight="20.0" prefWidth="224.0" text="Mökin osoite">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblOmistaja" disable="true" layoutX="34.0" layoutY="106.0" prefHeight="20.0" prefWidth="224.0" text="Omistajan nimi">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblHinta" disable="true" layoutX="34.0" layoutY="126.0" prefHeight="20.0" prefWidth="224.0" text="Hinta (€/vrk) ja henkilömäärä">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="299.0" layoutY="66.0" text="Asiakas-Id:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfNimi" layoutX="398.0" layoutY="64.0" prefHeight="25.0" prefWidth="54.0" />
+      <Button layoutX="472.0" layoutY="62.0" mnemonicParsing="false" onAction="#haeAsiakas" prefHeight="25.0" prefWidth="54.0" text="Hae">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblAsiakas" disable="true" layoutX="299.0" layoutY="86.0" prefHeight="20.0" prefWidth="224.0" text="Asiakkaan nimi">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAsiakasPuhelin" disable="true" layoutX="299.0" layoutY="106.0" prefHeight="20.0" prefWidth="224.0" text="Asiakkaan puhelinnumero">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAsiakasEmail" disable="true" layoutX="299.0" layoutY="126.0" prefHeight="20.0" prefWidth="224.0" text="Asiakkaan email">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblValidateAsiakas" layoutX="296.0" layoutY="152.0" prefHeight="25.0" prefWidth="210.0" textFill="RED">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Separator layoutX="20.0" layoutY="183.0" prefHeight="2.0" prefWidth="518.0" />
+      <Label layoutX="25.0" layoutY="200.0" prefHeight="20.0" prefWidth="184.0" text="Valitse alkamispäivämäärä">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="datePickerAlku" layoutX="25.0" layoutY="233.0" />
+      <Label layoutX="25.0" layoutY="284.0" prefHeight="20.0" prefWidth="194.0" text="Valitse loppumispäivämäärä">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="datePickerLoppu" layoutX="25.0" layoutY="317.0" />
+      <Label layoutX="25.0" layoutY="365.0" prefHeight="20.0" prefWidth="70.0" text="Vahvistus">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfVahvistus" layoutX="93.0" layoutY="362.0" prefHeight="25.0" prefWidth="38.0" />
+      <Label layoutX="134.0" layoutY="365.0" prefHeight="20.0" prefWidth="70.0" text="/pv ennen">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label disable="true" layoutX="25.0" layoutY="389.0" prefHeight="35.0" prefWidth="224.0" text="(Jos kenttä on tyhjä, vahvistus on automaattisesti 5 päivää. ennen varausta)" wrapText="true" />
+      <Label fx:id="lblValidatePaivamaara" layoutX="301.0" layoutY="188.0" prefHeight="48.0" prefWidth="224.0" textFill="RED" wrapText="true">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableViewPalvelut" layoutX="276.0" layoutY="240.0" prefHeight="109.0" prefWidth="249.0">
+        <columns>
+          <TableColumn fx:id="palvekuNimiColumn" prefWidth="82.0" text="NIMI" />
+          <TableColumn fx:id="palvekuHintaColumn" prefWidth="53.0" style="-fx-alignment: CENTER;" text="€/KPL" />
+            <TableColumn fx:id="palveluAlvColumn" minWidth="0.0" prefWidth="62.0" style="-fx-alignment: CENTER;" text="ALV" />
+            <TableColumn fx:id="palveluLkmColumn" onEditCommit="#onEditChanged" prefWidth="50.0" style="-fx-border-color: green; -fx-alignment: CENTER;" text="LKM" />
+        </columns>
+      </TableView>
+      <Label fx:id="lblValidateVahvistus" layoutX="276.0" layoutY="353.0" prefHeight="25.0" prefWidth="249.0" textFill="RED">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="283.0" layoutY="385.0" mnemonicParsing="false" onAction="#btnLisaaVaraus" prefHeight="35.0" prefWidth="109.0" text="Lisää">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="413.0" layoutY="385.0" mnemonicParsing="false" onAction="#peruutaToiminto" prefHeight="35.0" prefWidth="109.0" text="Peruuta">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

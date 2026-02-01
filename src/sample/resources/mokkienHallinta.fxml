@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="858.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.mokkienHallintaController">
+   <top>
+      <AnchorPane prefHeight="100.0" prefWidth="1297.0" style="-fx-background-color: DEB887;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="33.0" layoutY="33.0" text="Mökkien hallinta">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <right>
+      <AnchorPane prefHeight="885.0" prefWidth="101.0" style="-fx-background-color: DEB887;" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <AnchorPane prefHeight="734.0" prefWidth="949.0">
+         <children>
+            <GridPane layoutX="1.0" layoutY="3.0" prefHeight="758.0" prefWidth="980.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="852.0" minWidth="10.0" prefWidth="819.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="161.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="716.0" minHeight="10.0" prefHeight="661.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="132.0" minHeight="2.0" prefHeight="57.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TableView fx:id="mokkiTableView" prefHeight="691.0" prefWidth="830.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="mokki_idColumn" prefWidth="43.0" style="-fx-alignment: CENTER;" text="Id" />
+                        <TableColumn fx:id="mokki_alueColumn" prefWidth="82.0" style="-fx-alignment: CENTER;" text="Alue" />
+                        <TableColumn fx:id="mokki_nimiColumn" prefWidth="106.0" style="-fx-alignment: CENTER;" text="Nimi" />
+                        <TableColumn fx:id="mokki_osoiteColumn" prefWidth="131.0" style="-fx-alignment: CENTER;" text="Osoite" />
+                        <TableColumn fx:id="mokki_postinroColumn" prefWidth="52.0" style="-fx-alignment: CENTER;" text="Postinro" />
+                        <TableColumn fx:id="mokki_varusteluColumn" prefWidth="86.0" style="-fx-alignment: CENTER-LEFT;" text="Varustelu" />
+                        <TableColumn fx:id="mokki_kuvausColumn" prefWidth="147.0" style="-fx-alignment: CENTER-LEFT;" text="Kuvaus" />
+                        <TableColumn fx:id="mokki_omistajaidColumn" prefWidth="54.0" style="-fx-alignment: CENTER;" text="Omistaja" />
+                        <TableColumn fx:id="mokki_henkilotColumn" prefWidth="57.0" style="-fx-alignment: CENTER;" text="Henkilömäärä" />
+                        <TableColumn fx:id="mokki_hintaColumn" prefWidth="63.0" style="-fx-alignment: CENTER;" text="Hinta (€/vrk)" />
+                     </columns>
+                     <GridPane.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </TableView>
+                  <AnchorPane prefHeight="120.0" prefWidth="847.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label fx:id="lblHallintaNotification" layoutX="14.0" layoutY="12.0" prefHeight="35.0" prefWidth="825.0" textFill="#20b953">
+                           <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="701.0" prefWidth="163.0" GridPane.columnIndex="1">
+                     <children>
+                        <ListView fx:id="taListView" layoutX="27.0" layoutY="351.0" prefHeight="226.0" prefWidth="109.0">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </ListView>
+                        <Button layoutX="27.0" layoutY="600.0" mnemonicParsing="false" onAction="#lisaaToimintaAlue" prefHeight="35.0" prefWidth="109.0" text="LISÄÄ ALUE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="27.0" layoutY="660.0" mnemonicParsing="false" onAction="#poistaToimintaAlue" prefHeight="35.0" prefWidth="109.0" text="POISTA ALUE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Separator layoutX="3.0" layoutY="279.0" prefHeight="3.0" prefWidth="157.0" />
+                        <Label layoutX="14.0" layoutY="304.0" text="Toiminta-alueet">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="27.0" layoutY="100.0" mnemonicParsing="false" onAction="#mokinLisays" prefHeight="35.0" prefWidth="109.0" text="LISÄÄ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="27.0" layoutY="160.0" mnemonicParsing="false" onAction="#mokinMuokkaus" prefHeight="35.0" prefWidth="109.0" text="MUOKKAA">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="27.0" layoutY="220.0" mnemonicParsing="false" onAction="#mokinPoisto" prefHeight="35.0" prefWidth="109.0" text="POISTA">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="53.0" layoutY="40.0" text="Mökit">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <AnchorPane prefHeight="758.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="38.0" layoutY="695.0" mnemonicParsing="false" onAction="#switchToPaaNaytto" prefHeight="35.0" prefWidth="109.0" text="TAKAISIN">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="38.0" layoutY="321.0" mnemonicParsing="false" onAction="#haeKaikkiButtonOnAction" prefHeight="35.0" prefWidth="109.0" text="HAE KAIKKI">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Separator layoutX="9.0" layoutY="513.0" prefHeight="3.0" prefWidth="180.0" />
+            <Button layoutX="40.0" layoutY="222.0" mnemonicParsing="false" onAction="#haeEhdoilla" prefHeight="35.0" prefWidth="109.0" text="HAE MÖKKEJÄ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ChoiceBox fx:id="taChoiceBox" layoutX="15.0" layoutY="14.0" onMousePressed="#pudotusValikko" prefWidth="160.0" value="Valitse toiminta-alue" />
+            <TextField fx:id="tfPostiHaku" layoutX="110.0" layoutY="165.0" prefHeight="25.0" prefWidth="60.0" />
+            <Label layoutX="15.0" layoutY="120.0" text="Omistajan Id">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="70.0" prefHeight="20.0" prefWidth="62.0" text="Mökin Id">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="170.0" text="Postinumero">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfIdHaku" layoutX="110.0" layoutY="65.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="tfOmistajaHaku" layoutX="110.0" layoutY="115.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="tfSanaHaku" layoutX="15.0" layoutY="451.0" onKeyPressed="#onEnterPressed" prefHeight="25.0" prefWidth="155.0" />
+            <Label layoutX="15.0" layoutY="426.0" text="Sanahaku">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="9.0" layoutY="385.0" prefHeight="3.0" prefWidth="180.0" />
+            <Separator layoutX="9.0" layoutY="290.0" prefHeight="3.0" prefWidth="180.0" />
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="853.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.palveluidenHallintaController">
+    <children>
+        <AnchorPane prefHeight="749.0" prefWidth="438.0" style="-fx-background-color: DEB887;">
+            <children>
+                <VBox layoutX="57.0" layoutY="523.0" prefHeight="200.0" prefWidth="100.0" spacing="40.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#btLisaa" prefHeight="35.0" prefWidth="109.0" text="Lisää" />
+                        <Button mnemonicParsing="false" onAction="#btPoista" prefHeight="35.0" prefWidth="109.0" text="Poista" />
+                        <Button mnemonicParsing="false" onAction="#btMuokkaa" prefHeight="35.0" prefWidth="109.0" text="Muokkaa" />
+                    </children>
+                </VBox>
+                <TextField fx:id="tftyyppi" layoutX="24.0" layoutY="220.0" />
+                <TextArea fx:id="kuvausTextArea" layoutX="27.0" layoutY="394.0" prefHeight="116.0" prefWidth="169.0" />
+                <Label layoutX="74.0" layoutY="366.0" text="Kuvaus" />
+                <Label layoutX="61.0" layoutY="41.0" text="PalveluID" />
+                <Label fx:id="palveluIDLabel" layoutX="143.0" layoutY="40.0" text="ID" />
+                <Label layoutX="49.0" layoutY="74.0" prefHeight="17.0" prefWidth="87.0" text="Toiminta-alue id" />
+                <TextField fx:id="tfToimintaalue_id" layoutX="24.0" layoutY="104.0" />
+                <TextField fx:id="txtalv" layoutX="24.0" layoutY="330.0" />
+                <TextField fx:id="txthinta" layoutX="24.0" layoutY="278.0" />
+                <Label layoutX="79.0" layoutY="200.0" text="Tyyppi" />
+                <Label layoutX="86.0" layoutY="307.0" text="ALV" />
+                <Label layoutX="84.0" layoutY="253.0" text="Hinta" />
+                <TextField fx:id="txtnimi" layoutX="24.0" layoutY="168.0" />
+                <Label layoutX="81.0" layoutY="140.0" text="Nimi" />
+            </children>
+        </AnchorPane>
+        <Button layoutX="29.0" layoutY="805.0" mnemonicParsing="false" onAction="#switchToPaaNaytto" text="Takaisin" />
+        <Label layoutX="534.0" layoutY="14.0" text="Palveluiden hallinta">
+            <font>
+                <Font name="System Bold Italic" size="24.0" />
+            </font>
+        </Label>
+        <TableView fx:id="tvpalvelu" layoutX="435.0" layoutY="68.0" prefHeight="678.0" prefWidth="800.0">
+            <columns>
+                <TableColumn fx:id="tbcpalvelu_id" prefWidth="110.0" text="palvelu_id" />
+                <TableColumn fx:id="tbctoimintaalue_id" prefWidth="110.0" text="toimintaalue_id" />
+                <TableColumn fx:id="tbcnimi" minWidth="0.0" prefWidth="110.0" text="nimi" />
+                <TableColumn fx:id="tbctyyppi" prefWidth="110.0" text="tyyppi" />
+                <TableColumn fx:id="tbckuvaus" minWidth="0.0" prefWidth="140.0" text="kuvaus" />
+                <TableColumn fx:id="tbchinta" minWidth="0.0" prefWidth="110.0" text="hinta" />
+                <TableColumn fx:id="tbcalv" prefWidth="110.0" text="alv" />
+            </columns>
+        </TableView>
+    </children>
+</Pane>
